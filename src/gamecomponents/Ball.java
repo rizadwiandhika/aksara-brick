@@ -10,7 +10,7 @@ public class Ball {
     public final int RADIUS;
     private int x;
     private int y;
-	public int speedX;
+	private int speedX;
     private int speedY;
     private final Color COLOR = Color.YELLOW;
     

@@ -50,12 +50,28 @@ public class Paddle {
     public int getX() {
         return x;
     }
+    
+    public void setX(int x) {
+        this.x = x;
+    }
+    
+    public int getY() {
+        return Y;
+    }
 
     public int getLeftX() {
         return x - (int) WIDTH / 2;
     }
+    
     public int getRightX() {
         return x + (int) WIDTH / 2;
     }
 
+    public int getWidth() {
+    	return WIDTH;
+    }
+    
+    public int getheight() {
+    	return HEIGHT;
+    }
 }

@@ -1,8 +1,11 @@
 package main;
 
 import java.awt.*;
+
 import gamecomponents.*;
 import java.util.Random;
+
+import files.*;
 import handlers.KeyHandler;
 
 public class Game {
@@ -10,11 +13,12 @@ public class Game {
 	private final Color BG_MENU_COLOR;
 	private final Color BG_PLAY_COLOR;
 	private final Color BG_PAUSED_COLOR;
+	private final Image BG_GAME_IMAGE;
 
-	public static final int MIN_X = 5;
+	public static final int MIN_X = 7;
 	public static final int MIN_Y = 5;
-	public static final int MAX_X = 695;
-	public static final int MAX_Y = 570;
+	public static final int MAX_X = 680;
+	public static final int MAX_Y = 560;
     
 	private Ball ball;
     private Brick bricks;
@@ -22,6 +26,7 @@ public class Game {
 
 	private int score;
 	private boolean play;
+	private boolean menu;
 	private boolean paused;
 	private boolean gameWin;
 	private boolean gameOver;
@@ -40,6 +45,7 @@ public class Game {
 		BG_MENU_COLOR = null;
 		BG_PLAY_COLOR = new Color(20, 20, 20);
 		BG_PAUSED_COLOR = new Color(0, 0, 0, 191);
+		BG_GAME_IMAGE = ImageFile.getbgGameImage();
 
 		this.bricks = new Brick(selectedLevel);
 		this.paddle = new Paddle((int) ((double)speed * Math.cos(Math.toRadians(degree))) + 1);
@@ -53,13 +59,24 @@ public class Game {
 	}
 	
 	public Game() {
+		final int MAX_SPEED = 6;
+		final int MIN_SPEED = 4;
+		final int MAX_ANGLE = 55;
+		final int MIN_ANGLE = 45;
+
+        Random random = new Random();
+		int speed = random.nextInt(MAX_SPEED - MIN_SPEED + 1) + MIN_SPEED;
+		int degree = random.nextInt(MAX_ANGLE - MIN_ANGLE + 1) + MIN_ANGLE;
+		
 		BG_MENU_COLOR = new Color(79, 51, 15);
 		BG_PLAY_COLOR = null;
 		BG_PAUSED_COLOR = null;
+		BG_GAME_IMAGE = null;
 
+		this.menu = true;
 		this.bricks = new Brick(6);
-		this.paddle = new Paddle(0);
-		this.ball = new Ball(0, 0);
+		this.paddle = new Paddle((int) ((double)speed * Math.cos(Math.toRadians(degree))) + 1);
+		this.ball = new Ball(speed, degree);
 	}
 
     public void tick() {
@@ -79,6 +96,16 @@ public class Game {
 		}
 		
 		if (play) updateGame();
+
+		Main.frame.setCursor(Cursor.DEFAULT_CURSOR);
+    }
+    
+    public void tickMenu() {
+    	if(ball.getX() > paddle.getWidth()/2 
+    			&& ball.getX() < Main.WIDTH-paddle.getWidth()/2)
+    	paddle.setX(ball.getX());
+    	
+		if (menu) updateGame();
 
 		Main.frame.setCursor(Cursor.DEFAULT_CURSOR);
     }
@@ -144,14 +171,18 @@ public class Game {
 
     public void render(Graphics g) {
 		// update
-
+    	// 
+    	
+    	
 		// borders
 		g.setColor(Color.YELLOW);
-		g.fillRect(0, 0, 700, 600);
+		g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
 
         // background
 		g.setColor(BG_PLAY_COLOR);
-		g.fillRect(5, 5, 690, 600);
+		g.fillRect(5, 5, 675, 600);
+		
+		g.drawImage(BG_GAME_IMAGE, 0, 0, null);
 
 		// scores
 		g.setColor(Color.WHITE);

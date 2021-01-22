@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 import files.ImageFile;  
@@ -50,8 +51,9 @@ public class Menu {
         } else {
             Main.frame.setCursor(Cursor.DEFAULT_CURSOR);
         }
+        game.tickMenu();
     }
-
+    
     public void render(Graphics g) {
 
         // Passive game

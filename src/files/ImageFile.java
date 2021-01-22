@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 public class ImageFile {
 	private static Image lockedImage = Toolkit.getDefaultToolkit().getImage("image/assetGame/locked.png");
 	private static Image bgMenuImage = Toolkit.getDefaultToolkit().getImage("image/BrickBreakerForeground.png");
+	private static Image bgGameImage = Toolkit.getDefaultToolkit().getImage("image/BackgroundGames.png");
 	private static Image [][] imageAksara = new Image[4][5];
 
 	
@@ -20,6 +21,10 @@ public class ImageFile {
 
 	public static Image getBgMenuImage() {
 		return bgMenuImage;
+	}
+	
+	public static Image getbgGameImage() {
+		return bgGameImage;
 	}
 	
 	private static void fillImageAksara() {
